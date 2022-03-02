@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_prct_x_X.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fguy <marvin@42lausanne.ch>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/02 20:19:13 by fguy              #+#    #+#             */
+/*   Updated: 2022/03/02 20:19:16 by fguy             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 int ft_intlen(int i, unsigned int x)
@@ -10,12 +22,11 @@ int ft_intlen(int i, unsigned int x)
     return (i);
 }
 
-int ft_zero_case(unsigned int nb, char *res)
+int ft_zero_case(unsigned int nb)
 {
     if (nb == 0)
     {
         write(1, "0", 1);
-        free(res);
         return (1);
     }
     return (0);
@@ -42,7 +53,7 @@ char    *ft_dec_to_hexa(int  nb_mod, int nb_div, int nb, int i, char *format, ch
         }
         nb_div = nb / 16;
         nb = nb_div;
-        res[--i] = c;
+        res[--i] = c;    
     }
     return (res);
 }
@@ -61,12 +72,13 @@ int ft_prct_x_X(char *format, va_list ap)
     nb_mod = nb_div = 0;
     c = '0';
 
-    ft_intlen(i, x);
+    i = ft_intlen(i, x);
     res = malloc(sizeof(char) * (i + 1));
     res[i] = '\0';
-    ft_zero_case(nb, res);
+    ft_zero_case(nb);
     ft_dec_to_hexa(nb_mod, nb_div, nb, i, format, res, c);
     ft_putstr(res);
+    i = ft_strlen(res);
     free(res);
-    return(ft_strlen(res));
+    return(i);
 }

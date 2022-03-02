@@ -1,11 +1,16 @@
-#include <stdarg.h>
-#include <unistd.h>
-#include <limits.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
-#include <fcntl.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_putnbr_us.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fguy <marvin@42lausanne.ch>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/02 20:21:46 by fguy              #+#    #+#             */
+/*   Updated: 2022/03/02 20:21:49 by fguy             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "./libft.h"
 
 void	ft_putnbr_us(unsigned int nb)
 {
