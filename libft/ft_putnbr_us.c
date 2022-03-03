@@ -15,10 +15,12 @@
 void	ft_putnbr_us(unsigned int nb)
 {
 	if (nb == 4294967295)
-	    ft_putstr("4294967295");
-	if (nb > 9)
+		ft_putstr("4294967295");
+	else if (nb < 10)
+		ft_putchar(nb + '0');
+	else if (nb > 9)
 	{
 		ft_putnbr(nb / 10);
+		ft_putnbr_us(nb % 10);
 	}
-	ft_putchar((nb % 10) + '0');
 }

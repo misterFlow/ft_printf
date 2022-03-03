@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-int main()
+int	main()
 {
     char *p = NULL;
     char c = 'Z';
@@ -36,6 +36,14 @@ int main()
     printf("   printf for s: %s, %s\n", "coucou", "c'est nous");
     ft_printf("ft_printf for c: %c & %c\n", 'A', c);
     printf("   printf for c: %c & %c\n", 'A', c);
+	ft_printf(" %c %c %c ", '0', 0, '1');
+	ft_printf("\n");
+	printf(" %c %c %c ", '0', 0, '1');
+	ft_printf("\n");
+	//ft_printf(" %c %c %c ", ' ', ' ', ' ');
+	//ft_printf("\n");
+	//printf(" %c %c %c ", ' ', ' ', ' ');
+	//ft_printf("\n");
     ft_printf("%u %u %d\n", -2, 2, 'a');
     printf("%u %u %d\n", -2, 2, 'a');
     ft_printf("%% %%d %d %i %u %c %s\n", 42, 21, 84, 'F', "success");

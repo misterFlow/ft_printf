@@ -1,44 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_prct_p.c                                        :+:      :+:    :+:   */
+/*   ft_prct_x_X.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fguy <marvin@42lausanne.ch>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/02 20:18:51 by fguy              #+#    #+#             */
-/*   Updated: 2022/03/02 20:18:55 by fguy             ###   ########.fr       */
+/*   Created: 2022/03/02 20:19:13 by fguy              #+#    #+#             */
+/*   Updated: 2022/03/02 20:19:16 by fguy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-/*int	ft_void_case_ptr(unsigned long long int p)
+int	ft_intlen(int i, unsigned int x)
 {
-	write(1, "0x", 2);
-	return (2);
-}*/
-
-int	ft_intlen_ptr(unsigned long long int p, size_t i)
-{
-	unsigned long long int	nb;
-
 	i = 0;
-	nb = p;
-	if (nb == 0)
+	if (x == 0)
 		return (1);
-	while (nb > 0)
+	while (x > 0)
 	{
 		i++;
-		nb = nb / 16;
+		x = x / 16;
 	}
 	return (i);
 }
 
-int	ft_zero_case_ptr(unsigned long long p, char *res)
+static int	ft_zero_case(unsigned int nb, char *res)
 {
-	unsigned long long int	nb;
-
-	nb = p;
 	if (nb == 0)
 	{
 		write(1, "0", 1);
@@ -48,17 +36,19 @@ int	ft_zero_case_ptr(unsigned long long p, char *res)
 	return (0);
 }
 
-char	*ft_dec_to_hexa_ptr(unsigned long long int nb, int i, char *res, char c)
+char	*ft_dec_to_hexa(int nb, size_t i, char *format, char *res)
 {
-	unsigned long long int	nb_mod;
-	unsigned long long int	nb_div;
+	int				nb_mod;
+	int				nb_div;
+	char			c;
 
 	nb_mod = 0;
 	nb_div = 0;
+	c = '0';
 	while (nb > 0)
 	{
 		nb_mod = nb % 16;
-		if (nb_mod <= 9)
+		if (nb_mod >= 0 && nb_mod <= 9)
 		{
 			if (nb_mod == 0)
 				c = '0';
@@ -69,7 +59,12 @@ char	*ft_dec_to_hexa_ptr(unsigned long long int nb, int i, char *res, char c)
 			}
 		}
 		else if (nb_mod >= 10 && nb_mod <= 15)
-			c = nb_mod + 87;
+		{
+			if (*format == 'x')
+				c = nb_mod + 87;
+			else if (*format == 'X')
+				c = nb_mod + 55;
+		}
 		nb_div = nb / 16;
 		nb = nb_div;
 		res[--i] = c;
@@ -77,25 +72,24 @@ char	*ft_dec_to_hexa_ptr(unsigned long long int nb, int i, char *res, char c)
 	return (res);
 }
 
-int	ft_prct_p(va_list ap)
+int	ft_prct_x_xmaj(char *format, va_list ap)
 {
-	unsigned long long int	p;
-	size_t					i;
-	char					*res;
-	char					c;
+	unsigned int	x;
+	unsigned int	nb;
+	size_t			i;
+	char			*res;
 
 	i = 0;
-	p = va_arg(ap, unsigned long long int);
-	c = '0';
-	write(1, "0x", 2);
-	i = ft_intlen_ptr(p, i);
+	x = va_arg(ap, unsigned int);
+	nb = x;
+	i = ft_intlen(i, x);
 	res = malloc(sizeof(char) * (i + 1));
 	res[i] = '\0';
-	if (ft_zero_case_ptr(p, res) == 1)
-		return (1 + 2);
-	ft_dec_to_hexa_ptr(p, i, res, c);
+	if (ft_zero_case(nb, res) == 1)
+		return (1);
+	ft_dec_to_hexa(nb, i, format, res);
 	ft_putstr(res);
 	i = ft_strlen(res);
 	free(res);
-	return (i + 2);
+	return (i);
 }

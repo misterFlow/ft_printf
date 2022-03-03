@@ -8,7 +8,7 @@ SRCS =	\
 	ft_prct_d_i_u.c	\
 	ft_prct_p.c	\
 	ft_prct_s.c	\
-	ft_prct_x_X.c	\
+	ft_prct_x_xmaj.c	\
 
 OBJS		= $(SRCS:.c=.o)
 INCS		= .
